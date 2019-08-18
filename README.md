@@ -25,6 +25,4 @@ The result will (hopefully) be a [`video.ts`](https://en.wikipedia.org/wiki/MPEG
 ## TODO?
 
 - be more idiot friendly, catch errors, be less/more verbose, etc.
-- delete each segment directly after merge, thus saving hd space
-- `cat` seems to be like lolslow (at least on my raspi)
 - git gud in bash
