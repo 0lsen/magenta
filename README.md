@@ -1,28 +1,20 @@
-# Magenta Musik 360 Download
+# Magenta Musik 360 Downloader
 
 ## What?
 
 [Magenta](https://www.magenta-musik-360.de) offers free concert streams. If you want to download the streams feel free to use this bash script.
-I've tried this for a couple of Wacken Festival streams, no guarantee if this works for anything else.
+It will automatically choose the best quality available.
 
 ## How?
 
-Open the desired concert in your browser, have it play, open your browser's developer console (F12 for chrome/firefox) and take a look at the Network Tab.
-You will see a segment loading every couple of seconds (apparently 10 per minute / each 6s long).
-
-![asd](https://i.imgur.com/fY1TTdE.png)
-
-The URL is something like `https://streaming-magenta-music-360.akamaized.net/vod/WOA2018_Alestorm/hd/3400/segment577.ts`.
-`3400` in the URL denotes the video bitrate/resolution (`9000`: 1080p, `3400`: 720p, `2200`: 480p? - pick/guess your poison).
-Copy the URL, cut the `/segmentXXX.ts` part and throw the URL to the script like
+Just provide the concert's URL as parameter and as optional parameter the desired output file name. That's it (hopefully).
 
 ```
-. magenta.sh https://streaming-magenta-music-360.akamaized.net/vod/WOA2018_Alestorm/hd/9000
+. magenta.sh https://www.magenta-musik-360.de/abba-rock-case-studies-9208205928595215040 [ABBA.ts]
 ```
 
-The result will (hopefully) be a [`video.ts`](https://en.wikipedia.org/wiki/MPEG_transport_stream) file which should play on VLC / MPC-HC / etc.. Otherwise google how to convert that.
+The result should be a [`.ts` file](https://en.wikipedia.org/wiki/MPEG_transport_stream) which should play in VLC / MPC-HC / MPlayer /... .
 
-## TODO?
+## TODO
 
-- be more idiot friendly, catch errors, be less/more verbose, etc.
-- git gud in bash
+- add/link a tutorial on how to create chapters for your downloaded concerts (hint: `MKVToolNix`)
