@@ -60,9 +60,10 @@ echo "base download URL: $DOWNLOAD_URL"
 
 echo -e "\ndownloading segments..."
 I=0
-while curl -s $DOWNLOAD_URL/segment$I.ts -o segment$I.ts
+while curl -s -f $DOWNLOAD_URL/segment$I.ts -o segment$I.ts
 do
-        if ! [ -f segment$I.ts ]; then
+        res=$?
+        if test "$res" != "0"; then
             break;
         fi
         cat segment$I.ts >> "$NAME"
