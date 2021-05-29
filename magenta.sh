@@ -28,7 +28,7 @@ ASSET_ID=$(curl $URL 2>&1 | grep -Eo "$ASSET_ID_NAME=\"\d+" | grep -Eo "\d+")
 echo "Asset ID: $ASSET_ID"
 
 echo -e "\nfetching Detail ID...     (from $MANIFEST_URL?deviceId=$MANIFEST_DEVICE_ID&model=$MANIFEST_MODEL&firmware=$MANIFEST_FIRMWARE&appVersion=$MANIFEST_APPVERSION&appName=$MANIFEST_APPNAME&runtimeVersion=$MANIFEST_RUNTIMEVERSION)"
-DETAIL_ID=$(curl "$MANIFEST_URL?deviceId=$MANIFEST_DEVICE_ID&model=$MANIFEST_MODEL&firmware=$MANIFEST_FIRMWARE&appVersion=$MANIFEST_APPVERSION&appName=$MANIFEST_APPNAME&runtimeVersion=$MANIFEST_RUNTIMEVERSION" 2>&1 | grep -Eo "\"value\": \"$PLAYER_URL/details/\d{2,}" | grep -Eo "\d{2,}")
+DETAIL_ID=$(curl "$MANIFEST_URL?deviceId=$MANIFEST_DEVICE_ID&model=$MANIFEST_MODEL&firmware=$MANIFEST_FIRMWARE&appVersion=$MANIFEST_APPVERSION&appName=$MANIFEST_APPNAME&runtimeVersion=$MANIFEST_RUNTIMEVERSION" 2>&1 | grep -Eo "\"value\":\s*\"$PLAYER_URL/details/\d{2,}" | grep -Eo "\d{2,}")
 echo "Detail ID: $DETAIL_ID"
 
 echo -e "\nfetching Player ID...     (from $PLAYER_URL/details/$DETAIL_ID/$ASSET_ID)"
@@ -36,7 +36,7 @@ PLAYER_ID=$(curl "$PLAYER_URL/details/$DETAIL_ID/$ASSET_ID" 2>&1 | grep -Eo "$PL
 echo "Player ID: $PLAYER_ID"
 
 echo -e "\nfetching Content ID...     (from $PLAYER_URL/player/$PLAYER_ID/$ASSET_ID/Main%20Movie)"
-CONTENT_ID=$(curl "$PLAYER_URL/player/$PLAYER_ID/$ASSET_ID/Main%20Movie" 2>&1 | grep -Eo "\"contentNumber\": \"\d+" | grep -Eo "\d+")
+CONTENT_ID=$(curl "$PLAYER_URL/player/$PLAYER_ID/$ASSET_ID/Main%20Movie" 2>&1 | grep -Eo "\"contentNumber\":\s*\"\d+" | grep -Eo "\d+")
 echo "Content ID: $CONTENT_ID"
 
 echo -e "\nfetching Playlist URL...     (from $MOVIE_URL/$ASSET_ID/$CONTENT_ID)"
