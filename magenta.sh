@@ -47,14 +47,24 @@ echo -e "\nparsing Maximum Bitrate from playlist..."
 MAX_BIRATE=$(curl $PLAYLIST_URL 2>&1 | grep -Eo "URI=\"\d+" | grep -Eo "\d+" | sort -nr | head -n1)
 echo "Maximum Bitrate: $MAX_BIRATE"
 
+reverse() {
+    read a
+    len=${#a}
+    for((i=$len-1;i>=0;i--)); do rev="$rev${a:$i:1}"; done
+    echo $rev
+}
+
 echo -e "\nbuilding base download URL..."
-DOWNLOAD_URL=`echo $PLAYLIST_URL | rev | cut -c 12- | rev`/$MAX_BIRATE
+DOWNLOAD_URL=`echo $PLAYLIST_URL | reverse | cut -c 12- | reverse`/$MAX_BIRATE
 echo "base download URL: $DOWNLOAD_URL"
 
 echo -e "\ndownloading segments..."
 I=0
-while wget -q $DOWNLOAD_URL/segment$I.ts
+while curl -s $DOWNLOAD_URL/segment$I.ts -o segment$I.ts
 do
+        if ! [ -f segment$I.ts ]; then
+            break;
+        fi
         cat segment$I.ts >> "$NAME"
         rm segment$I.ts
         echo "  segment $I downloaded, merged and deleted"
