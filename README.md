@@ -5,6 +5,8 @@
 [Magenta](https://www.magenta-musik-360.de) offers free concert streams. If you want to download the streams feel free to use this bash script.
 It will automatically choose the best quality available.
 
+(Windows users with git bash or similiar might try replacing `-Eo` with `-Po` for things to work)
+
 ## How?
 
 Just provide the concert's URL as parameter and as optional parameter the desired output file name. That's it (hopefully).
