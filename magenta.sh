@@ -2,7 +2,7 @@
 
 # input parameters
 URL=$1
-if [ "$#" -eq 2 ];
+if [[ ("$#" -eq 2 || "$#" -eq 3) ]];
 then
   NAME=$2
 else
