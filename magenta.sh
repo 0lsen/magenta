@@ -30,7 +30,7 @@ PLAYLIST_URL=$(curl "$MOVIE_URL/$ASSET_ID/$CONTENT_ID" 2>&1 | grep -Eo "src=\"[^
 echo "Playlist URL: $PLAYLIST_URL"
 
 echo -e "\nparsing Maximum Bitrate from playlist..."
-MAX_BIRATE=$(curl $PLAYLIST_URL 2>&1 | grep -Eo "URI=\"[0-9]+" | grep -Eo "[0-9]+" | sort -nr | head -n1)
+MAX_BIRATE=$(curl $PLAYLIST_URL 2>&1 | grep -Eo "[0-9]+/index.m3u8" | grep -Eo "[0-9]+" | sort -nr | head -n1)
 echo "Maximum Bitrate: $MAX_BIRATE"
 
 reverse() {
