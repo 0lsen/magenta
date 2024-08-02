@@ -18,11 +18,11 @@ MOVIE_URL="https://wcps.t-online.de/cmrs/magentamusic/media/v1/hlsstreaming/movi
 
 # fetch IDs and ultimately playlist
 echo -e "\nfetching Asset ID...     (from $URL)"
-ASSET_ID=$(curl $URL 2>&1 | grep -Eo "$ASSET_ID_NAME\":\"$DM_MOVIE_PREFIX\d+" | grep -Eo "\d+")
+ASSET_ID=$(curl $URL 2>&1 | grep -Eo "$ASSET_ID_NAME\":\"$DM_MOVIE_PREFIX[0-9]+" | grep -Eo "[0-9]+")
 echo "Asset ID: $ASSET_ID"
 
 echo -e "\nfetching Content ID...     (from $PLAYER_URL/$ASSET_ID/Main%20Movie)"
-CONTENT_ID=$(curl "$PLAYER_URL/$ASSET_ID/Main%20Movie" 2>&1 | grep -Eo "$MOVIE_URL/$ASSET_ID/\d+" | grep -Eo "\d+$")
+CONTENT_ID=$(curl "$PLAYER_URL/$ASSET_ID/Main%20Movie" 2>&1 | grep -Eo "$MOVIE_URL/$ASSET_ID/[0-9]+" | grep -Eo "[0-9]+$")
 echo "Content ID: $CONTENT_ID"
 
 echo -e "\nfetching Playlist URL...     (from $MOVIE_URL/$ASSET_ID/$CONTENT_ID)"
@@ -30,7 +30,7 @@ PLAYLIST_URL=$(curl "$MOVIE_URL/$ASSET_ID/$CONTENT_ID" 2>&1 | grep -Eo "src=\"[^
 echo "Playlist URL: $PLAYLIST_URL"
 
 echo -e "\nparsing Maximum Bitrate from playlist..."
-MAX_BIRATE=$(curl $PLAYLIST_URL 2>&1 | grep -Eo "URI=\"\d+" | grep -Eo "\d+" | sort -nr | head -n1)
+MAX_BIRATE=$(curl $PLAYLIST_URL 2>&1 | grep -Eo "URI=\"[0-9]+" | grep -Eo "[0-9]+" | sort -nr | head -n1)
 echo "Maximum Bitrate: $MAX_BIRATE"
 
 reverse() {
